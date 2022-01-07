@@ -9,13 +9,13 @@ body:
 
       Please describe what you would like to change/add and why in detail by filling out the template below.
 
-      If you are not sure if your request fits into Viper, you can contact us via the available [support channels](https://github.com/spf13/viper/issues/new/choose).
+      If you are not sure if your request fits into Viper, you can contact us via the available [support channels](https://github.com/17media/viper/issues/new/choose).
 - type: checkboxes
   attributes:
     label: Preflight Checklist
     description: Please ensure you've completed all of the following.
     options:
-      - label: I have searched the [issue tracker](https://www.github.com/spf13/viper/issues) for an issue that matches the one I want to file, without success.
+      - label: I have searched the [issue tracker](https://www.github.com/17media/viper/issues) for an issue that matches the one I want to file, without success.
         required: true
 - type: textarea
   attributes:
