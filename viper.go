@@ -1201,7 +1201,7 @@ func (v *Viper) BindEnv(input ...string) error {
 //
 // Viper will check to see if an alias exists first.
 // Viper will then check in the following order:
-// flag, env, config file, key/value store.
+// flag, config file, env, key/value store.
 // Lastly, if no value was found and flagDefault is true, and if the key
 // corresponds to a flag, the flag's default value is returned.
 //
@@ -1261,6 +1261,15 @@ func (v *Viper) find(lcaseKey string, flagDefault bool) interface{} {
 		return nil
 	}
 
+	// Config file next
+	val = v.searchIndexableWithPathPrefixes(v.config, path)
+	if val != nil {
+		return val
+	}
+	if nested && v.isPathShadowedInDeepMap(path, v.config) != "" {
+		return nil
+	}
+
 	// Env override next
 	if v.automaticEnvApplied {
 		// even if it hasn't been registered, if automaticEnv is used,
@@ -1281,15 +1290,6 @@ func (v *Viper) find(lcaseKey string, flagDefault bool) interface{} {
 		}
 	}
 	if nested && v.isPathShadowedInFlatMap(path, v.env) != "" {
-		return nil
-	}
-
-	// Config file next
-	val = v.searchIndexableWithPathPrefixes(v.config, path)
-	if val != nil {
-		return val
-	}
-	if nested && v.isPathShadowedInDeepMap(path, v.config) != "" {
 		return nil
 	}
 
